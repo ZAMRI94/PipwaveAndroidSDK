@@ -165,7 +165,7 @@ public final class PipwaveCheckoutActivity extends Activity{
                         String data = "<html>\n" +
                                 "<body>\n" +
                                 "<div id=\"pwscript\"></div>\n" +
-                                "<div class=\"pwarea\" id=\"pwarea\"></div>\n" +
+                                "<div class=\"pwarea\" id=\"pwarea\"></div>\n"  +
                                 "<script type=\"text/javascript\">\n" +
                                 "var pwconfig = {\"api_key\":\""+ mPipwave.getApi_key() +"\",\"token\":\""+ mSessionToken +"\"};\n" +
                                 "(function (_, p, w, s, d, k) {\n" +
