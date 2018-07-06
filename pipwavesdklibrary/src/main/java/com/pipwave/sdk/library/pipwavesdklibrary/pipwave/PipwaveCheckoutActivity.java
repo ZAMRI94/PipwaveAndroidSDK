@@ -7,6 +7,8 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Base64;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -104,8 +106,14 @@ public final class PipwaveCheckoutActivity extends Activity{
             @Override
             public void onPageFinished(WebView view, String url) {
 
-                if(url.contains(mSessionToken) || url != null){
-                    hideProgress();
+                if(url.contains(mSessionToken) || url.contains(mSessionCheckoutId)){
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideProgress();
+                        }
+                    },7000);
+
                 }
                 super.onPageFinished(view, url);
             }
