@@ -164,7 +164,6 @@ public final class PipwaveCheckoutActivity extends Activity{
 
                         String data = "<html>\n" +
                                 "<body>\n" +
-                                "<h1> PIPWAVE PAYMENT </h1>" +
                                 "<div id=\"pwscript\"></div>\n" +
                                 "<div class=\"pwarea\" id=\"pwarea\"></div>\n" +
                                 "<script type=\"text/javascript\">\n" +
@@ -193,10 +192,6 @@ public final class PipwaveCheckoutActivity extends Activity{
 
 
                         loadData(data, mimiType, encoding);
-
-
-                        //Toast toast = Toast.makeText(PipwaveCheckoutActivity.this, htmlData, Toast.LENGTH_LONG);
-                        //toast.show();
 
                     } catch (JSONException e) {
                         finishFailure(e.getMessage());
