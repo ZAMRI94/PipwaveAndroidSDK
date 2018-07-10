@@ -27,6 +27,7 @@ public final class JSONUtils {
         root.put("action", pipwave.getAction());
         root.put("timestamp", pipwave.getTimestamp());
         root.put("api_key", pipwave.getApi_key());
+        root.put("api_secret", pipwave.getApi_secret());
         root.put("txn_id", pipwave.getTxn_id());
         root.put("amount", pipwave.getAmount());
         root.put("currency_code", pipwave.getCurrency_code());

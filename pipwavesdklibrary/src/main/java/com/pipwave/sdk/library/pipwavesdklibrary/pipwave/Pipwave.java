@@ -20,6 +20,7 @@ public class Pipwave implements Parcelable{
     private String action;
     private String timestamp;
     private String api_key;
+    private String api_secret;
     private String txn_id;
     private String amount;
     private String currency_code;
@@ -63,6 +64,7 @@ public class Pipwave implements Parcelable{
         action = in.readString();
         timestamp = in.readString();
         api_key = in.readString();
+        api_secret = in.readString();
         txn_id = in.readString();
         amount = in.readString();
         currency_code = in.readString();
@@ -88,13 +90,13 @@ public class Pipwave implements Parcelable{
 
     }
 
-    public Pipwave(String signature, String action, String timestamp, String api_key,
+    public Pipwave(String action, String timestamp, String api_key, String api_secret,
                    String txn_id, String amount, String currency_code, BuyerInfo buyerInfo){
 
-        this.signature = signature;
         this.action = action;
         this.timestamp = timestamp;
         this.api_key = api_key;
+        this.api_secret = api_secret;
         this.txn_id = txn_id;
         this.amount = amount;
         this.currency_code = currency_code;
@@ -114,14 +116,14 @@ public class Pipwave implements Parcelable{
         //this.sessionInfo = sessionInfo;
     }
 
-    public Pipwave(String signature, String action, String timestamp, String api_key,
+    public Pipwave(String action, String timestamp, String api_key, String api_secret,
                    String txn_id, String amount, String currency_code, BuyerInfo buyerInfo,
                    AddressInfo shippingInfo){
 
-        this.signature = signature;
         this.action = action;
         this.timestamp = timestamp;
         this.api_key = api_key;
+        this.api_secret = api_secret;
         this.txn_id = txn_id;
         this.amount = amount;
         this.currency_code = currency_code;
@@ -130,14 +132,14 @@ public class Pipwave implements Parcelable{
 
     }
 
-    public Pipwave(String signature, String action, String timestamp, String api_key,
+    public Pipwave(String action, String timestamp, String api_key, String api_secret,
                    String txn_id, String amount, String currency_code, BuyerInfo buyerInfo,
                    ApiOverride apiOverride){
 
-        this.signature = signature;
         this.action = action;
         this.timestamp = timestamp;
         this.api_key = api_key;
+        this.api_secret = api_secret;
         this.txn_id = txn_id;
         this.amount = amount;
         this.currency_code = currency_code;
@@ -176,6 +178,14 @@ public class Pipwave implements Parcelable{
 
     public void setApi_key(String api_key) {
         this.api_key = api_key;
+    }
+
+    public String getApi_secret() {
+        return api_secret;
+    }
+
+    public void setApi_secret(String api_secret) {
+        this.api_secret = api_secret;
     }
 
     public String getTxn_id() {
@@ -325,6 +335,7 @@ public class Pipwave implements Parcelable{
         dest.writeString(action);
         dest.writeString(timestamp);
         dest.writeString(api_key);
+        dest.writeString(api_secret);
         dest.writeString(txn_id);
         dest.writeString(amount);
         dest.writeString(currency_code);
@@ -354,6 +365,7 @@ public class Pipwave implements Parcelable{
         sb.append(", action=").append(action);
         sb.append(", timestamp=").append(timestamp);
         sb.append(", api_key=").append(api_key);
+        sb.append(", api_secret=").append(api_secret);
         sb.append(", txn_id=").append(txn_id);
         sb.append(", amount=").append(amount);
         sb.append(", currency_code=").append(currency_code);

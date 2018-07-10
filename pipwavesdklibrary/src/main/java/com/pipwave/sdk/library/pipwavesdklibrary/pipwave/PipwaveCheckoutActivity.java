@@ -23,11 +23,14 @@ import com.pipwave.sdk.library.pipwavesdklibrary.common.network.Request;
 import com.pipwave.sdk.library.pipwavesdklibrary.common.network.Response;
 import com.pipwave.sdk.library.pipwavesdklibrary.common.utils.JSONUtils;
 import com.pipwave.sdk.library.pipwavesdklibrary.common.utils.Preconditions;
+import com.pipwave.sdk.library.pipwavesdklibrary.common.utils.Signature;
 import com.pipwave.sdk.library.pipwavesdklibrary.pipwave.model.ApiOverride;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -126,13 +129,23 @@ public final class PipwaveCheckoutActivity extends Activity{
 
         new AsyncTask<Void, Void, Response>() {
             @Override
-            protected Response doInBackground(Void... voids) {
+            protected Response doInBackground(Void... vdoids) {
 
                 try {
                     Request request = new Request(Request.Method.POST, PipwaveConfig.getEnvironment()
                             == PipwaveConfig.ENVIRONMENT_PRODUCTION ?
                             PipwaveConfig.API_PIPWAVE_PRODUCTION :
                             PipwaveConfig.API_PIPWAVE_SANDBOX);
+
+                    String mSignature = "action:"+ mPipwave.getAction() + "amount:" + mPipwave.getAmount() + "api_key:" + mPipwave.getApi_key() + "api_secret:" + mPipwave.getApi_secret() + "currency_code:" + mPipwave.getCurrency_code() + "timestamp:" + mPipwave.getTimestamp() + "txn_id:" + mPipwave.getTxn_id();
+                    String signature = null;
+                    try {
+                        signature = Signature.SHA1(mSignature);
+                    } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+                    mPipwave.setSignature(signature);
 
                     byte[] body = JSONUtils.toJSON(mPipwave).toString().getBytes();
                     request.setBody(body);
