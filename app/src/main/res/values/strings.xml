@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PipwaveAndroidSDK</string>
+    <string name="app_name">PipwaveExample</string>
     <string name="press_here">Press Here</string>
     <string name="description">T-Shirt Red\nRM10</string>
     <string name="purchase">Purchase</string>
