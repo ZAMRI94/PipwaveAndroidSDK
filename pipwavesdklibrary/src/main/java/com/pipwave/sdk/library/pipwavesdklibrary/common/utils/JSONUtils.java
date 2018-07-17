@@ -53,7 +53,7 @@ public final class JSONUtils {
     }
 
 
-    public static JSONObject toJSON(BuyerInfo buyerInfo)throws  JSONException {
+    private static JSONObject toJSON(BuyerInfo buyerInfo)throws  JSONException {
         if (buyerInfo != null) {
             JSONObject root = new JSONObject();
             root.put("id", buyerInfo.getId());
@@ -72,7 +72,7 @@ public final class JSONUtils {
         return null;
     }
 
-    public static JSONObject toJSON(AddressInfo addressInfo)throws JSONException{
+    private static JSONObject toJSON(AddressInfo addressInfo)throws JSONException{
         if(addressInfo != null){
             JSONObject root = new JSONObject();
             root.put("name", addressInfo.getName());
@@ -91,7 +91,7 @@ public final class JSONUtils {
         return null;
     }
 
-    public static JSONObject toJSON(ItemInfo itemInfo)throws  JSONException{
+    private static JSONObject toJSON(ItemInfo itemInfo)throws  JSONException{
         if(itemInfo != null){
             JSONObject root = new JSONObject();
             root.put("name", itemInfo.getItemName());
@@ -100,13 +100,12 @@ public final class JSONUtils {
             root.put("quantity", itemInfo.getQuantity());
             root.put("category", itemInfo.getCategory());
             root.put("sku", itemInfo.getSku());
-            //root.put("is_tangible_good", itemInfo.getConditions);
             return root;
         }
         return null;
     }
 
-    public static JSONArray toJSON(List<ItemInfo> itemList)throws JSONException{
+    private static JSONArray toJSON(List<ItemInfo> itemList)throws JSONException{
         if(itemList != null && itemList.size() > 0){
             JSONArray array = new JSONArray();
             for(ItemInfo itemInfo : itemList){
@@ -117,7 +116,7 @@ public final class JSONUtils {
         return null;
     }
 
-    public static JSONObject toJSON(SubtotalInfo subtotalInfo)throws  JSONException{
+    private static JSONObject toJSON(SubtotalInfo subtotalInfo)throws  JSONException{
         if(subtotalInfo != null){
             JSONObject root = new JSONObject();
             root.put("name",subtotalInfo.getSubtotalName());
@@ -127,7 +126,7 @@ public final class JSONUtils {
         return null;
     }
 
-    public static JSONArray toJSON1(List<SubtotalInfo> totalList)throws JSONException{
+    private static JSONArray toJSON1(List<SubtotalInfo> totalList)throws JSONException{
         if(totalList != null && totalList.size() > 0){
             JSONArray array = new JSONArray();
             for(SubtotalInfo subtotalInfo :totalList){
@@ -138,7 +137,7 @@ public final class JSONUtils {
         return null;
     }
 
-    public static JSONObject toJSON(ApiOverride apiOverride)throws JSONException{
+    private static JSONObject toJSON(ApiOverride apiOverride)throws JSONException{
         if(apiOverride != null){
             JSONObject root = new JSONObject();
             root.put("notification_url", apiOverride.getNotification());
@@ -155,7 +154,7 @@ public final class JSONUtils {
         return null;
     }
 
-    public static JSONObject toJSON(SessionInfo sessionInfo)throws JSONException{
+    private static JSONObject toJSON(SessionInfo sessionInfo)throws JSONException{
         if(sessionInfo != null){
             JSONObject root = new JSONObject();
             root.put("ip_address", sessionInfo.getIpAddress());

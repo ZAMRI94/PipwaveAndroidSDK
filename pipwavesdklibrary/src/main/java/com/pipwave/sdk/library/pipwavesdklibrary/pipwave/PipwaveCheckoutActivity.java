@@ -34,6 +34,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.pipwave.sdk.library.pipwavesdklibrary.PipwaveConfig.ACTION;
+
 public final class PipwaveCheckoutActivity extends Activity{
 
     public static final int RESULT_FAILURE = 1063;
@@ -42,7 +44,6 @@ public final class PipwaveCheckoutActivity extends Activity{
     public static final String EXTRAS_CHECKOUT = "extras_checkout";
     public static final String EXTRAS_CHECKOUT_BUNDLE = "extras_bundle";
     public static final String EXTRAS_FAILURE_MESSAGE = "extras_failure_message";
-    public static final String TAG = "";
 
     private Pipwave mPipwave;
     private String mClientKey;
@@ -91,7 +92,7 @@ public final class PipwaveCheckoutActivity extends Activity{
         mWebView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
+                //redirect||call when transaction done
                 ApiOverride apiOverride = mPipwave.getApiOverride();
                 if(url.startsWith(apiOverride.getSuccess())){
                     finishSuccess();
@@ -108,7 +109,7 @@ public final class PipwaveCheckoutActivity extends Activity{
 
             @Override
             public void onPageFinished(WebView view, String url) {
-
+                //Hide ProgressBar after  7second  when mSessionToken or mSessionCheckoutId loaded
                 if(url.contains(mSessionToken) || url.contains(mSessionCheckoutId)){
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
@@ -116,28 +117,32 @@ public final class PipwaveCheckoutActivity extends Activity{
                             hideProgress();
                         }
                     },7000);
-
                 }
                 super.onPageFinished(view, url);
             }
         });
     }
 
-
     @SuppressLint("StaticFieldLeak")
     private void requestCreateCheckout() {
 
         new AsyncTask<Void, Void, Response>() {
             @Override
-            protected Response doInBackground(Void... vdoids) {
+            protected Response doInBackground(Void... voids) {
 
                 try {
+                    //Initialize environment
                     Request request = new Request(Request.Method.POST, PipwaveConfig.getEnvironment()
                             == PipwaveConfig.ENVIRONMENT_PRODUCTION ?
                             PipwaveConfig.API_PIPWAVE_PRODUCTION :
                             PipwaveConfig.API_PIPWAVE_SANDBOX);
 
-                    String mSignature = "action:"+ mPipwave.getAction() + "amount:" + mPipwave.getAmount() + "api_key:" + mPipwave.getApi_key() + "api_secret:" + mPipwave.getApi_secret() + "currency_code:" + mPipwave.getCurrency_code() + "timestamp:" + mPipwave.getTimestamp() + "txn_id:" + mPipwave.getTxn_id();
+                    //generate timestamp
+                    long time = System.currentTimeMillis()/1000L;
+                    String timestamp = Long.toString(time);
+
+                    //generate signature
+                    String mSignature = "action:"+ ACTION + "amount:" + mPipwave.getAmount() + "api_key:" + mPipwave.getApi_key() + "api_secret:" + mPipwave.getApi_secret() + "currency_code:" + mPipwave.getCurrency_code() + "timestamp:" + timestamp + "txn_id:" + mPipwave.getTxn_id();
                     String signature = null;
                     try {
                         signature = Signature.SHA1(mSignature);
@@ -146,6 +151,8 @@ public final class PipwaveCheckoutActivity extends Activity{
                     }
 
                     mPipwave.setSignature(signature);
+                    mPipwave.setAction(ACTION);
+                    mPipwave.setTimestamp(timestamp);
 
                     byte[] body = JSONUtils.toJSON(mPipwave).toString().getBytes();
                     request.setBody(body);
@@ -174,6 +181,7 @@ public final class PipwaveCheckoutActivity extends Activity{
                     try {
                         JSONObject responseBody = new JSONObject(response.getResponse());
 
+                        //get redirectUrl and token after api fire
                         mSessionRedirectUrl =responseBody.getString("redirect_url");
                         mSessionToken = responseBody.getString("token");
 
@@ -183,9 +191,16 @@ public final class PipwaveCheckoutActivity extends Activity{
                             mSessionRedirectUrl += "&cssfix=true";
                         }
 
-                        String data = "<html>\n" +
-                                "<body>\n" +
-                                "<div id=\"pwscript\"></div>\n" +
+                        if(mPipwave.getStyles() == null){
+                            mPipwave.setStyles("");
+                        }
+                        if(mPipwave.getHeaders() == null){
+                            mPipwave.setHeaders("");
+                        }
+
+                        // Hardcoded Pipwave JS SDK
+                        String SDK = "<html>\n" + mPipwave.getStyles() + "\n<body>\n" + mPipwave.getHeaders() +
+                                "\n<div id=\"pwscript\"></div>\n" +
                                 "<div class=\"pwarea\" id=\"pwarea\"></div>\n"  +
                                 "<script type=\"text/javascript\">\n" +
                                 "var pwconfig = {\"api_key\":\""+ mPipwave.getApi_key() +"\",\"token\":\""+ mSessionToken +"\"};\n" +
@@ -211,13 +226,11 @@ public final class PipwaveCheckoutActivity extends Activity{
                                 "</body>\n" +
                                 "</html>";
 
-
-                        loadData(data, mimiType, encoding);
-
+                        //load Pipwave JS SDK in WebView
+                        loadData(SDK, mimiType, encoding);
                     } catch (JSONException e) {
                         finishFailure(e.getMessage());
                     }
-
                 }else{
                     finishFailure(response.getResponse());
                 }
@@ -225,19 +238,21 @@ public final class PipwaveCheckoutActivity extends Activity{
         }.execute();
     }
 
-
+    //Call this when transaction success
     private void finishSuccess() {
         Intent intent = new Intent();
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
+    //Call this when transaction canceled
     private void finishCanceled() {
         Intent intent = new Intent();
         setResult(Activity.RESULT_CANCELED, intent);
         finish();
     }
 
+    //Call this when transaction failure
     private void finishFailure(String message) {
         Intent intent = new Intent();
         intent.putExtra(EXTRAS_FAILURE_MESSAGE, message);
@@ -245,16 +260,18 @@ public final class PipwaveCheckoutActivity extends Activity{
         finish();
     }
 
-
+    //webview load data
     @JavascriptInterface
     private void loadData(String url, String mimiType, String encoding) {
         mWebView.loadData(url,mimiType, encoding);
     }
 
+    //show ProgressBar
     public void showProgress(){
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
+    //hide ProgressBar
     private void hideProgress() {
         mProgressBar.setVisibility(View.GONE);
     }

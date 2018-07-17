@@ -27,32 +27,61 @@ public class SessionInfo implements Parcelable{
         language = in.readString();
     }
 
+    /**
+     * @param ipAddress ip_address
+     * @param sessionId session_id
+     * @param language language
+     */
     public SessionInfo(String ipAddress, String sessionId, String language){
         this.ipAddress = ipAddress;
         this.sessionId = sessionId;
         this.language = language;
     }
 
+    /**
+     * @return ipAddress
+     */
     public String getIpAddress() {
         return ipAddress;
     }
 
+    /**
+     * set a new value for ipAddress
+     *
+     * @param ipAddress ip_address
+     */
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
 
+    /**
+     * @return sessionId
+     */
     public String getSessionId() {
         return sessionId;
     }
 
+    /**
+     * set a new value for sessionId
+     *
+     * @param sessionId session_id
+     */
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
 
+    /**
+     * @return language
+     */
     public String getLanguage() {
         return language;
     }
 
+    /**
+     * set a new value for language
+     *
+     * @param language language
+     */
     public void setLanguage(String language) {
         this.language = language;
     }
@@ -77,7 +106,5 @@ public class SessionInfo implements Parcelable{
         sb.append('}');
         return sb.toString();
     }
-
-
 
 }

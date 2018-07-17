@@ -1,9 +1,5 @@
 package com.pipwave.sdk.library.pipwavesdklibrary;
 
-/**
- * Created by User on 4/7/2018.
- */
-
 public class PipwaveConfig {
 
     public static final String ACTION = "initiate-payment";

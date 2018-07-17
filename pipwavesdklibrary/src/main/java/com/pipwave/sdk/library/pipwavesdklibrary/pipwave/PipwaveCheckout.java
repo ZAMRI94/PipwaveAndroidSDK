@@ -12,11 +12,21 @@ public final class PipwaveCheckout  {
     private String mClientKey;
     private PipwaveCheckoutCallback mCallback;
 
+    /**
+     * @param clientKey clientKey
+     * @param callback callback
+     */
     public PipwaveCheckout(String clientKey, PipwaveCheckoutCallback callback){
         mClientKey = clientKey;
         mCallback = Preconditions.checkNotNull(callback, "callback");
     }
 
+    /**
+     * execution for calling pipwave api
+     *
+     * @param activity activity
+     * @param model model
+     */
     public void execute(Activity activity, Pipwave model){
         Bundle checkoutBundle = new Bundle();
         checkoutBundle.putParcelable(PipwaveCheckoutActivity.EXTRAS_CHECKOUT, model);
@@ -26,8 +36,13 @@ public final class PipwaveCheckout  {
         activity.startActivityForResult(intent, CHECKOUT_REQUEST_CODE);
     }
 
-
-
+    /**
+     * call activity after Activity done
+     *
+     * @param requestCode requestCode
+     * @param resultCode resultCode
+     * @param data data
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == CHECKOUT_REQUEST_CODE){
             switch (resultCode){

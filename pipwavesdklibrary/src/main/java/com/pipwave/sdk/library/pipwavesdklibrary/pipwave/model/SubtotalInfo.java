@@ -25,23 +25,43 @@ public class SubtotalInfo implements Parcelable {
         value = in.readString();
     }
 
+    /**
+     * @param subtotalName name
+     * @param value value
+     */
     public SubtotalInfo(String subtotalName, String value){
         this.subtotalName = subtotalName;
         this.value = value;
     }
 
+    /**
+     * @return subtotalName
+     */
     public String getSubtotalName() {
         return subtotalName;
     }
 
+    /**
+     * set a new value for subtotal_info item's name
+     *
+     * @param subtotalName name
+     */
     public void setSubtotalName(String subtotalName) {
         this.subtotalName = subtotalName;
     }
 
+    /**
+     * @return value
+     */
     public String getValue() {
         return value;
     }
 
+    /**
+     * set a new value for subtotal_info item's value
+     *
+     * @param value value
+     */
     public void setValue(String value) {
         this.value = value;
     }
@@ -64,8 +84,5 @@ public class SubtotalInfo implements Parcelable {
         sb.append('}');
         return sb.toString();
     }
-
-
-
 
 }

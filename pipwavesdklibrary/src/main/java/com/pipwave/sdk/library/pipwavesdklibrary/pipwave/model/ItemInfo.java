@@ -33,6 +33,13 @@ public class ItemInfo implements Parcelable {
         sku = in.readString();
     }
 
+    /**
+     * @param itemName name
+     * @param amount amount
+     * @param quantity quantity
+     * @param category category
+     * @param sku sku
+     */
     public ItemInfo(String itemName, String amount, String quantity,
                     String category, String sku){
         this.itemName = itemName;
@@ -42,6 +49,14 @@ public class ItemInfo implements Parcelable {
         this.sku = sku;
     }
 
+    /**
+     * @param itemName name
+     * @param description description
+     * @param amount amount
+     * @param quantity quantity
+     * @param category category
+     * @param sku sku
+     */
     public ItemInfo(String itemName, String description ,String amount, String quantity,
                     String category, String sku){
         this.itemName = itemName;
@@ -52,50 +67,98 @@ public class ItemInfo implements Parcelable {
         this.sku = sku;
     }
 
+    /**
+     * @return itemName
+     */
     public String getItemName() {
         return itemName;
     }
 
+    /**
+     * set a new value for item_info itemName
+     *
+     * @param itemName itemName
+     */
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
 
+    /**
+     * @return description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * set a new value for item_info description
+     *
+     * @param description description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * @return amount
+     */
     public String getAmount() {
         return amount;
     }
 
+    /**
+     * set a new value for item_info item's amount
+     *
+     * @param amount amount
+     */
     public void setAmount(String amount) {
         this.amount = amount;
     }
 
+    /**
+     * @return quantity
+     */
     public String getQuantity() {
         return quantity;
     }
 
+    /**
+     * set a new value for item_info item's quantity
+     *
+     * @param quantity quantity
+     */
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
+    /**
+     * @return category
+     */
     public String getCategory() {
         return category;
     }
 
+    /**
+     * set a new value for item_info category
+     *
+     * @param category category
+     */
     public void setCategory(String category) {
         this.category = category;
     }
 
+    /**
+     * @return sku
+     */
     public String getSku() {
         return sku;
     }
 
+    /**
+     * set a new value for item_info item's sku
+     *
+     * @param sku sku
+     */
     public void setSku(String sku) {
         this.sku = sku;
     }
@@ -127,7 +190,5 @@ public class ItemInfo implements Parcelable {
         return sb.toString();
 
     }
-
-
 }
 

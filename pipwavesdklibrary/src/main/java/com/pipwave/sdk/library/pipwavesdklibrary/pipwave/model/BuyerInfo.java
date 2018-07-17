@@ -44,11 +44,22 @@ public class BuyerInfo implements Parcelable{
         processing_fee = in.readString();
     }
 
+    /**
+     * @param id id
+     * @param email email
+     */
     public BuyerInfo(String id, String email){
         this.id = id;
         this.email = email;
     }
 
+    /**
+     * @param id id
+     * @param email email
+     * @param first_name first_name
+     * @param last_name last_name
+     * @param contact_no contact_no
+     */
     public BuyerInfo(String id, String email, String first_name, String last_name, String contact_no) {
         this.id = id;
         this.email = email;
@@ -57,6 +68,14 @@ public class BuyerInfo implements Parcelable{
         this.contact_no = contact_no;
     }
 
+    /**
+     * @param id id
+     * @param email email
+     * @param first_name first_name
+     * @param last_name last_name
+     * @param contact_no contact_no
+     * @param processing_fee processing_fee_group
+     */
     public BuyerInfo(String id, String email, String first_name, String last_name, String contact_no,
                      String processing_fee){
         this.id = id;
@@ -67,6 +86,17 @@ public class BuyerInfo implements Parcelable{
         this.processing_fee = processing_fee;
     }
 
+    /**
+     * @param id id
+     * @param email email
+     * @param first_name first_name
+     * @param last_name last_name
+     * @param contact_no contact_no
+     * @param contact_iso2 contact_no_country_iso2
+     * @param contact_code contact_no_country_code
+     * @param country_code country_code
+     * @param processing_fee processing_fee_group
+     */
     public BuyerInfo(String id, String email, String first_name, String last_name, String contact_no,
                      String contact_iso2, String contact_code, String country_code, String processing_fee){
         this.id = id;
@@ -81,74 +111,146 @@ public class BuyerInfo implements Parcelable{
     }
 
 
+    /**
+     * @return id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * set a new value for buyer_info id
+     *
+     * @param id id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * @return email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * set a new value for buyer_info email
+     *
+     * @param email email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * @return first_name
+     */
     public String getFirst_name() {
         return first_name;
     }
 
+    /**
+     * set a new value for first_name
+     *
+     * @param first_name first_name
+     */
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
     }
 
+    /**
+     * @return last_name
+     */
     public String getLast_name() {
         return last_name;
     }
 
+    /**
+     * set a new value for last_name
+     *
+     * @param last_name last_name
+     */
     public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
 
+    /**
+     * @return contact_no
+     */
     public String getContact_no() {
         return contact_no;
     }
 
+    /**
+     * set a new value for contact_no
+     *
+     * @param contact_no contact_no
+     */
     public void setContact_no(String contact_no) {
         this.contact_no = contact_no;
     }
 
+    /**
+     * @return contact_iso2
+     */
     public String getContact_iso2() {
         return contact_iso2;
     }
 
+    /**
+     * set a new value for contact_iso2
+     *
+     * @param contact_iso2 contact_no_country_iso2
+     */
     public void setContact_iso2(String contact_iso2) {
         this.contact_iso2 = contact_iso2;
     }
 
+    /**
+     * @return contact_code
+     */
     public String getContact_code() {
         return contact_code;
     }
 
+    /**
+     * set a new value for contact_code
+     *
+     * @param contact_code contact_no_country_code
+     */
     public void setContact_code(String contact_code) {
         this.contact_code = contact_code;
     }
 
+    /**
+     * @return country_code
+     */
     public String getCountry_code() {
         return country_code;
     }
 
+    /**
+     * set a new code for country_code
+     *
+     * @param country_code country_code
+     */
     public void setCountry_code(String country_code) {
         this.country_code = country_code;
     }
 
+    /**
+     * @return processing_fee
+     */
     public String getProcessing_fee() {
         return processing_fee;
     }
 
+    /**
+     * set a new value for processing_fee
+     *
+     * @param processing_fee processing_fee_group
+     */
     public void setProcessing_fee(String processing_fee) {
         this.processing_fee = processing_fee;
     }
