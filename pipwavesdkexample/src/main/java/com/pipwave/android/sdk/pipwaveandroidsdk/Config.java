@@ -1,9 +1,5 @@
 package com.pipwave.android.sdk.pipwaveandroidsdk;
 
-/**
- * Created by User on 17/7/2018.
- */
-
 public class Config {
     public static final String API_STAGING_KEY = "qAJR3PljO72TuSfAy8euH8asfWXt3yUSapW7g0gi";
     public static final String API_STAGING_SECRET = "muwnTAuRfjSpNqyjmBSmUkXGDXut9iIarGRrrleU";
