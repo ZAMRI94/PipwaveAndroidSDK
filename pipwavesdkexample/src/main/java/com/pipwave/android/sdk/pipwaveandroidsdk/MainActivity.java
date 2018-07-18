@@ -20,6 +20,8 @@ import static com.pipwave.android.sdk.pipwaveandroidsdk.Config.API_STAGING_KEY;
 import static com.pipwave.android.sdk.pipwaveandroidsdk.Config.API_STAGING_SECRET;
 import static com.pipwave.android.sdk.pipwaveandroidsdk.Config.CANCEL_URL_PIPWAVE;
 import static com.pipwave.android.sdk.pipwaveandroidsdk.Config.FAILURE_URL_PIPWAVE;
+import static com.pipwave.android.sdk.pipwaveandroidsdk.Config.HEADERS;
+import static com.pipwave.android.sdk.pipwaveandroidsdk.Config.STYLES;
 import static com.pipwave.android.sdk.pipwaveandroidsdk.Config.SUCCESS_URL_PIPWAVE;
 
 public class MainActivity extends AppCompatActivity implements PipwaveCheckoutCallback {
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements PipwaveCheckoutCa
         String currency_code = "MYR";
 
         Pipwave pipwave = new Pipwave(API_STAGING_KEY, API_STAGING_SECRET, txn_id, amount, currency_code, buyerInfo, apiOverride);
+        pipwave.setHeaders(HEADERS);
+        pipwave.setStyles(STYLES);
         mPipwaveCheckout.execute(this, pipwave);
     }
 
