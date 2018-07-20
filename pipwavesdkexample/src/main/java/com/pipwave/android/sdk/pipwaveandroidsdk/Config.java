@@ -10,8 +10,7 @@ public class Config {
 
     public static final String HEADERS = "<div class=\"header\">\n<a href=\"#default\" class=\"logo\">ShoppeCart</a></div>";
 
-    public static final String STYLES = "<head>\n" +
-            "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+    public static final String STYLES =
             "<style>\n" +
             "* {box-sizing: border-box;}\n" +
             "\n" +

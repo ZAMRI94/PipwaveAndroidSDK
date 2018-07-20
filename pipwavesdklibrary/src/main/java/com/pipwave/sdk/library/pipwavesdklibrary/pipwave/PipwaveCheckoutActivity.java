@@ -198,36 +198,41 @@ public final class PipwaveCheckoutActivity extends Activity{
                             mPipwave.setHeaders("");
                         }
 
-                        // Hardcoded Pipwave JS SDK
-                        String SDK = "<html>\n" + mPipwave.getStyles() + "\n<body>\n" + mPipwave.getHeaders() +
-                                "\n<div id=\"pwscript\"></div>\n" +
-                                "<div class=\"pwarea\" id=\"pwarea\"></div>\n"  +
-                                "<script type=\"text/javascript\">\n" +
-                                "var pwconfig = {\"api_key\":\""+ mPipwave.getApi_key() +"\",\"token\":\""+ mSessionToken +"\"};\n" +
-                                "(function (_, p, w, s, d, k) {\n" +
-                                "    var a = _.createElement(\"script\");\n" +
-                                "    a.setAttribute(\"data-main\", w + s);    \n" +
-                                "\ta.setAttribute('src', w + d);\n" +
-                                "    a.setAttribute('id', k);\n" +
-                                "    setTimeout(function() {\n" +
-                                "        var reqPwInit = (typeof reqPipwave != 'undefined');\n" +
-                                "        if (reqPwInit) {\n" +
-                                "            reqPipwave.require(['pw'], function(pw) {\n" +
-                                "                pw.setOpt(pwconfig);\n" +
-                                "                pw.startLoad();\n" +
-                                "            });\n" +
-                                "        } else {\n" +
-                                "            _.getElementById(k).parentNode.replaceChild(a, _.getElementById(k));\n" +
-                                "        }\n" +
-                                "    }, 800);\n" +
-                                "})(document, 'script', \"https://staging-checkout.pipwave.com/sdk/\", \"pw.sdk.js\", \"lib/require.js\", \"pwscript\");\n" +
-                                "</script>\n" +
-                                "\n" +
-                                "</body>\n" +
-                                "</html>";
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("<html>");
+                        sb.append("<head>");
+                        sb.append("<meta http-equiv=\"Content-Type\" content= \"text/html;charset=UTF-8\">");
+                        sb.append(mPipwave.getStyles());
+                        sb.append("<body>");
+                        sb.append(mPipwave.getHeaders());
+                        sb.append("<div id=\"pwscript\"></div>");
+                        sb.append("<div class=\"pwarea\" id=\"pwarea\"></div>");
+                        sb.append("<script type=\"text/javascript\">");
+                        sb.append("var pwconfig = {\"api_key\":\"").append(mPipwave.getApi_key()).append("\",\"token\":\"").append(mSessionToken).append("\"};");
+                        sb.append("(function (_, p, w, s, d, k) {");
+                        sb.append("    var a = _.createElement(\"script\");");
+                        sb.append("    a.setAttribute(\"data-main\", w + s);    a.setAttribute('src', w + d);");
+                        sb.append("    a.setAttribute('id', k);");
+                        sb.append("    setTimeout(function() {");
+                        sb.append("        var reqPwInit = (typeof reqPipwave != 'undefined');");
+                        sb.append("        if (reqPwInit) {");
+                        sb.append("            reqPipwave.require(['pw'], function(pw) {");
+                        sb.append("                pw.setOpt(pwconfig);");
+                        sb.append("                pw.startLoad();");
+                        sb.append("            });");
+                        sb.append("        } else {");
+                        sb.append("            _.getElementById(k).parentNode.replaceChild(a, _.getElementById(k));");
+                        sb.append("        }");
+                        sb.append("    }, 800);");
+                        sb.append("})(document, 'script', \"https://staging-checkout.pipwave.com/sdk/\", \"pw.sdk.js\", \"lib/require.js\", \"pwscript\");");
+                        sb.append("</script>");
+                        sb.append("</body>");
+                        sb.append("</html>");
+
+
 
                         //load Pipwave JS SDK in WebView
-                        loadData(SDK, mimiType, encoding);
+                        loadData(sb.toString(), mimiType, encoding);
                     } catch (JSONException e) {
                         finishFailure(e.getMessage());
                     }
